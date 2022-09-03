@@ -3,4 +3,5 @@ object Modules {
     const val core = ":core"
     const val ui = ":ui"
     const val onboarding = ":onboarding"
+    const val moviefinder = ":moviefinder"
 }

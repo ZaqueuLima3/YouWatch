@@ -56,6 +56,7 @@ dependencies {
     kapt(DaggerHilt.hiltCompiler)
 
     implementation(project(Modules.onboarding))
+    implementation(project(Modules.moviefinder))
     implementation(project(Modules.core))
     implementation(project(Modules.ui))
 
