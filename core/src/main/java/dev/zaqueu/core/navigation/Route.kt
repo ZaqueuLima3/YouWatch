@@ -1,4 +1,4 @@
-package dev.zaqueu.youwatch
+package dev.zaqueu.core.navigation
 
 object Route {
     const val WELCOME = "welcome"

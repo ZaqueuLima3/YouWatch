@@ -3,40 +3,31 @@ package dev.zaqueu.youwatch
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import dev.zaqueu.youwatch.ui.theme.YouWatchTheme
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
+import dev.zaqueu.core.navigation.Route
+import dev.zaqueu.onboarding.presentation.welcome.WelcomeScreen
+import dev.zaqueu.youwatch.navigation.navigate
+import dev.zaqueu.ui.theme.YouWatchTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             YouWatchTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                val navController = rememberNavController()
+                NavHost(
+                    navController = navController,
+                    startDestination = Route.WELCOME
                 ) {
-                    Greeting("Android")
+                    composable(Route.WELCOME) {
+                        WelcomeScreen(onNavigate = navController::navigate)
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    YouWatchTheme {
-        Greeting("Android")
     }
 }
