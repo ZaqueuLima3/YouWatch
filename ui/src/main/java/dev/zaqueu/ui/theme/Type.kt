@@ -13,9 +13,14 @@ val Typography = Typography(
     h1 = TextStyle(
         fontFamily = PoppinsFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = FontSize.large
+        fontSize = FontSize.extraLarge
     ),
     h2 = TextStyle(
+        fontFamily = PoppinsFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = FontSize.large
+    ),
+    h3 = TextStyle(
         fontFamily = PoppinsFamily,
         fontWeight = FontWeight.Medium,
         fontSize = FontSize.medium
