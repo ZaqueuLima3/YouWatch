@@ -16,3 +16,4 @@ rootProject.name = "You Watch"
 include ':app'
 include ':onboarding'
 include ':ui'
+include ':core'
