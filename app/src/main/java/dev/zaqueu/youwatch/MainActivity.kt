@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dev.zaqueu.core.navigation.Route
-import dev.zaqueu.onboarding.presentation.welcome.WelcomeScreen
+import dev.zaqueu.onboarding.presentation.screens.welcome.WelcomeScreen
 import dev.zaqueu.youwatch.navigation.navigate
 import dev.zaqueu.ui.theme.YouWatchTheme
 

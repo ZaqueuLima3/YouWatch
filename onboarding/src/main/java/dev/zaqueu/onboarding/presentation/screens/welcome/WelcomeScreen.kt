@@ -1,4 +1,4 @@
-package dev.zaqueu.onboarding.presentation.welcome
+package dev.zaqueu.onboarding.presentation.screens.welcome
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
