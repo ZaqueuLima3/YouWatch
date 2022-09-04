@@ -1,5 +1,7 @@
 package dev.zaqueu.moviefinder.data.di
 
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,10 +33,22 @@ object DataLayerModule {
 
     @Provides
     @Singleton
-    fun provideTvMazeApi(client: OkHttpClient): TvMazeApi {
+    fun provideMoshi(): Moshi {
+        return Moshi
+            .Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideTvMazeApi(
+        client: OkHttpClient,
+        moshi: Moshi
+    ): TvMazeApi {
         return Retrofit.Builder()
             .baseUrl(TvMazeApi.BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(client)
             .build()
             .create()

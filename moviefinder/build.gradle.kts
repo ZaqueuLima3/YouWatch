@@ -10,4 +10,10 @@ dependencies {
     "implementation"(Retrofit.moshiConverter)
     "implementation"(Retrofit.okHttp)
     "implementation"(Retrofit.okHttpLoggingInterceptor)
+
+    "implementation"(Moshi.moshi)
+    "implementation"(Moshi.kotlinMoshi)
+    "kapt"(Moshi.moshiCodegen)
+
+    "implementation"(Paging.pagingCompose)
 }
