@@ -1,15 +1,15 @@
 package dev.zaqueu.moviefinder.fixtures
 
+import dev.zaqueu.moviefinder.data.remote.dtos.SearchShowDto
 import dev.zaqueu.moviefinder.data.remote.dtos.ShowDto
 import dev.zaqueu.moviefinder.data.remote.dtos.ShowDto.Image
 import dev.zaqueu.moviefinder.data.remote.dtos.ShowDto.Rating
-import dev.zaqueu.moviefinder.data.remote.dtos.ShowsDto
 
 fun createShowDto(
-    id: Int = 1,
+    id: Long = 1,
     name: String = "Shows name",
     genres: List<String> = listOf("Comedy"),
-    rating: String = "6.5",
+    rating: Double = 6.5,
     summary: String = "summary",
     image: String = "image-url"
 ): ShowDto {
@@ -23,8 +23,8 @@ fun createShowDto(
     )
 }
 
-fun createShowsDto(shows: List<ShowDto>): ShowsDto {
-    return ShowsDto(
-        shows = shows
+fun createSearchShowsDto(show: ShowDto): SearchShowDto {
+    return SearchShowDto(
+        show = show
     )
 }

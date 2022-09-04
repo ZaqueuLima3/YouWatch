@@ -4,8 +4,8 @@ import dev.zaqueu.moviefinder.data.remote.mappers.mapToShows
 import dev.zaqueu.moviefinder.data.remote.services.TvMazeApi
 import dev.zaqueu.moviefinder.domain.models.Show
 import dev.zaqueu.moviefinder.domain.repositories.ShowsRepository
+import dev.zaqueu.moviefinder.fixtures.createSearchShowsDto
 import dev.zaqueu.moviefinder.fixtures.createShowDto
-import dev.zaqueu.moviefinder.fixtures.createShowsDto
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -32,49 +32,10 @@ class ShowsRepositoryTest {
     }
 
     @Test
-    fun `should return Result of all shows when call getAllMovies and it succeed`() = runBlocking {
-        val page = 1
-        val showsDtos = createShowsDto(
-            listOf(createShowDto())
-        )
-        val expected: List<Show> = showsDtos.mapToShows()
-        coEvery {
-            api.getAllMovies(any())
-        } returns showsDtos
-
-        val result = showsRepository.getAllShows(page)
-
-        coVerify {
-            api.getAllMovies(page)
-        }
-        Assert.assertTrue(result.isSuccess)
-        Assert.assertEquals(result.getOrNull(), expected)
-        confirmVerified(api)
-    }
-
-    @Test
-    fun `should return Result of failure when call getAllMovies and it do not succeed`() = runBlocking {
-        val page = 1
-        val exception = Exception()
-        coEvery {
-            api.getAllMovies(any())
-        } throws(exception)
-
-        val result = showsRepository.getAllShows(page)
-
-        coVerify {
-            api.getAllMovies(page)
-        }
-        Assert.assertTrue(result.isFailure)
-        Assert.assertEquals(result.exceptionOrNull(), exception)
-        confirmVerified(api)
-    }
-
-    @Test
     fun `should return Result of all shows when call searchShow and it succeed`() = runBlocking {
         val name = "any-name"
-        val showsDtos = createShowsDto(
-            listOf(createShowDto())
+        val showsDtos = listOf(
+            createSearchShowsDto(createShowDto())
         )
         val expected: List<Show> = showsDtos.mapToShows()
         coEvery {
@@ -92,20 +53,21 @@ class ShowsRepositoryTest {
     }
 
     @Test
-    fun `should return Result of failure when call searchShow and it do not succeed`() = runBlocking {
-        val name = "any-name"
-        val exception = Exception()
-        coEvery {
-            api.searchShow(any())
-        } throws(exception)
+    fun `should return Result of failure when call searchShow and it do not succeed`() =
+        runBlocking {
+            val name = "any-name"
+            val exception = Exception()
+            coEvery {
+                api.searchShow(any())
+            } throws (exception)
 
-        val result = showsRepository.searchShow(name)
+            val result = showsRepository.searchShow(name)
 
-        coVerify {
-            api.searchShow(name)
+            coVerify {
+                api.searchShow(name)
+            }
+            Assert.assertTrue(result.isFailure)
+            Assert.assertEquals(result.exceptionOrNull(), exception)
+            confirmVerified(api)
         }
-        Assert.assertTrue(result.isFailure)
-        Assert.assertEquals(result.exceptionOrNull(), exception)
-        confirmVerified(api)
-    }
 }
