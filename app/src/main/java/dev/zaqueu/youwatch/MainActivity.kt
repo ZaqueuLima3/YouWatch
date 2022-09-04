@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dev.zaqueu.core.navigation.Route
+import dev.zaqueu.moviefinder.presentation.screens.home.HomeScreen
 import dev.zaqueu.onboarding.presentation.screens.welcome.WelcomeScreen
 import dev.zaqueu.youwatch.navigation.navigate
 import dev.zaqueu.ui.theme.YouWatchTheme
@@ -25,6 +26,9 @@ class MainActivity : ComponentActivity() {
                 ) {
                     composable(Route.WELCOME) {
                         WelcomeScreen(onNavigate = navController::navigate)
+                    }
+                    composable(Route.HOME) {
+                        HomeScreen(onNavigate = navController::navigate)
                     }
                 }
             }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello</string>
+    <string name="find_your_next_movie">Find your next series or movie</string>
+    <string name="rating">Rating</string>
+    <string name="summary">Summary</string>
+</resources>
