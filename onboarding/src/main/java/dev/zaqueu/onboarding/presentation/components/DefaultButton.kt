@@ -30,7 +30,7 @@ fun DefaultButton(
             text = text,
             style = textStyle,
             color = MaterialTheme.colors.onPrimary,
-            modifier = Modifier.padding(spacing.spaceSmall)
+            modifier = Modifier.padding(spacing.spaceSmall),
         )
     }
 }

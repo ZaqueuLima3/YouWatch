@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="dev.zaqueu.youwatch">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".YauWatchApp"
         android:allowBackup="true"
