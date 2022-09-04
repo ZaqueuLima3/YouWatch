@@ -1,17 +1,19 @@
 package dev.zaqueu.moviefinder.data.remote.mappers
 
-import dev.zaqueu.moviefinder.data.remote.dtos.ShowsDto
+import dev.zaqueu.moviefinder.data.remote.dtos.ShowDto
 import dev.zaqueu.moviefinder.domain.models.Show
 
-fun ShowsDto.mapToShows(): List<Show> {
-    return this.shows.map {
-        Show(
-            id = it.id,
-            name = it.name,
-            cover = it.image.medium,
-            rating = it.rating.average ?: "0.0",
-            summary = it.summary,
-            isFavourite = false
-        )
-    }
+fun List<ShowDto>.mapToShows(): List<Show> {
+    return this.map { it.mapToModel() }
+}
+
+fun ShowDto.mapToModel(): Show {
+    return Show(
+        id = id,
+        name = name,
+        cover = image?.medium,
+        rating = rating?.average,
+        summary = summary,
+        isFavourite = false
+    )
 }
