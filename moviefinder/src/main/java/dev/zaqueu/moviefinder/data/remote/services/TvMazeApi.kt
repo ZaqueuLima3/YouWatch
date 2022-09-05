@@ -6,14 +6,14 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface TvMazeApi {
-    @GET("shows?page=page")
+    @GET("shows")
     suspend fun getAllMovies(
         @Query("page") page: Int,
     ): List<ShowDto>
 
-    @GET("search/shows?q=name")
+    @GET("search/shows")
     suspend fun searchShow(
-        @Query("name") name: String
+        @Query("q") name: String
     ): List<SearchShowDto>
 
     companion object {

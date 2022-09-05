@@ -9,7 +9,10 @@ interface ShowsRepository {
     fun getAllShows(
         pageConfig: PagingConfig = getDefaultPageConfig()
     ): Flow<PagingData<Show>>
-    suspend fun searchShow(name: String): Result<List<Show>>
+    fun searchShow(
+        name: String,
+        pageConfig: PagingConfig = getDefaultPageConfig()
+    ): Flow<PagingData<Show>>
 
     private fun getDefaultPageConfig(): PagingConfig {
         return PagingConfig(pageSize = DEFAULT_PAGE_SIZE, enablePlaceholders = false)

@@ -3,8 +3,15 @@ package dev.zaqueu.youwatch
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -34,7 +41,7 @@ class MainActivity : ComponentActivity() {
                             BottomNavigationBar(navController = navController)
                         }
                     }
-                ) {
+                ) { innerPadding ->
                     NavHost(
                         navController = navController,
                         startDestination = NavRoutes.WELCOME.route
@@ -44,19 +51,38 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(NavRoutes.HOME.route) {
-                            HomeScreen(onNavigate = navController::navigate)
+                            InnerScreen(innerPadding) {
+                                HomeScreen(onNavigate = navController::navigate)
+                            }
                         }
 
                         composable(NavRoutes.SEARCH.route) {
-                            SearchScreen()
+                            InnerScreen(innerPadding) {
+                                SearchScreen()
+                            }
                         }
 
                         composable(NavRoutes.FAVORITE.route) {
-                            FavoritesScreen()
+                            InnerScreen(innerPadding) {
+                                FavoritesScreen()
+                            }
                         }
                     }
                 }
             }
         }
     }
+}
+
+@Composable
+fun InnerScreen(
+    innerPadding: PaddingValues,
+    content: @Composable BoxScope.() -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(innerPadding),
+        content = { content() },
+    )
 }

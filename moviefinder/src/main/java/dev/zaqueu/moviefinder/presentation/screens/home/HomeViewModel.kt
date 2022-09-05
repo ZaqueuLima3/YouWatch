@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getAllShows: GetAllShows
+    getAllShows: GetAllShows
 ) : ViewModel() {
     val showsFlow = getAllShows()
         .cachedIn(viewModelScope)
