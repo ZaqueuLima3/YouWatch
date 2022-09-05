@@ -6,6 +6,6 @@ data class Show(
     val cover: String?,
     val rating: Double?,
     val summary: String?,
-    val isFavourite: Boolean
+    val isFavorite: Boolean
 )
 

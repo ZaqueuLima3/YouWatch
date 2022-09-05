@@ -8,14 +8,14 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
 
 private val LightColorPalette = lightColors(
-    primary = Blue200,
-    primaryVariant = Blue800,
+    primary = Blue800,
+    primaryVariant = Blue200,
     secondary = Orange500,
     background = White200,
     surface = Color.White,
     onPrimary = Color.White,
     onSecondary = Color.Black,
-    onBackground = Blue800,
+    onBackground = Gray700,
     onSurface = Color.Black,
 )
 

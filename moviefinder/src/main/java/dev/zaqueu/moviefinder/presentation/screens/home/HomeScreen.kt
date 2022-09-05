@@ -40,7 +40,7 @@ fun HomeScreen(
                 modifier = Modifier
                     .height(150.dp)
                     .fillMaxWidth()
-                    .background(MaterialTheme.colors.onBackground),
+                    .background(MaterialTheme.colors.primary),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {

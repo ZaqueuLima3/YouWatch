@@ -32,6 +32,52 @@ class ShowsRepositoryTest {
     }
 
     @Test
+    fun `should return Result of all shows when call getAllMovies and it succeed`() = runBlocking {
+//        val mockShows = listOf(
+//            createShowDto(id = 1),
+//            createShowDto(id = 2),
+//        )
+//
+//        coEvery {
+//            api.getAllMovies(any())
+//        } returns mockShows
+//
+//        val expected = Page(
+//            data = listOf(mockShows[0].mapToModel(), mockShows[1].mapToModel()),
+//            prevKey = 2,
+//            nextKey = null
+//        )
+//
+//        val result = showsRepository.getAllShows().first()
+//
+//        Assert.assertEquals(result, expected)
+//
+//        coVerify {
+//            api.getAllMovies(any())
+//        }
+//        confirmVerified(api)
+    }
+
+    @Test
+    fun `should return Result of failure when call getAllMovies and it do not succeed`() =
+        runBlocking {
+//        val page = 1
+//        val exception = Exception()
+//        coEvery {
+//            api.getAllMovies(any())
+//        } throws(exception)
+//
+//        val result = showsRepository.getAllShows(page)
+//
+//        coVerify {
+//            api.getAllMovies(page)
+//        }
+//        Assert.assertTrue(result.isFailure)
+//        Assert.assertEquals(result.exceptionOrNull(), exception)
+//        confirmVerified(api)
+        }
+
+    @Test
     fun `should return Result of all shows when call searchShow and it succeed`() = runBlocking {
         val name = "any-name"
         val showsDtos = listOf(

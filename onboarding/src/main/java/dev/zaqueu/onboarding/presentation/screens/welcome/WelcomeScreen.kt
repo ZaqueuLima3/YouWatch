@@ -1,7 +1,14 @@
 package dev.zaqueu.onboarding.presentation.screens.welcome
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -13,7 +20,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import dev.zaqueu.core.navigation.Route
+import dev.zaqueu.core.navigation.NavRoutes
 import dev.zaqueu.onboarding.R
 import dev.zaqueu.onboarding.presentation.components.DefaultButton
 import dev.zaqueu.ui.theme.LocalSpacing
@@ -71,7 +78,7 @@ fun WelcomeScreen(
         DefaultButton(
             text = stringResource(R.string.get_stared),
             onClick = {
-                onNavigate(UiEvents.Navigate(Route.HOME))
+                onNavigate(UiEvents.Navigate(NavRoutes.HOME.route))
             },
             modifier = Modifier
                 .fillMaxWidth()

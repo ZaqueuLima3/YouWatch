@@ -14,6 +14,6 @@ fun ShowDto.mapToModel(): Show {
         cover = image?.medium,
         rating = rating?.average,
         summary = summary,
-        isFavourite = false
+        isFavorite = false
     )
 }
