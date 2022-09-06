@@ -4,4 +4,10 @@
     <string name="find_your_next_movie">Find your next series or movies.</string>
     <string name="rating">Rating</string>
     <string name="summary">Summary</string>
+    <string name="back">back</string>
+    <string name="favorite">favorite</string>
+    <string name="from">from</string>
+    <string name="to">to</string>
+    <string name="see_all_episodes">See all episodes</string>
+    <string name="find_your_movies">"Find your movies"</string>
 </resources>

@@ -75,13 +75,17 @@ fun DetailsScreen(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(0.dp),
+                .padding(
+                    PaddingValues(
+                        vertical = spacing.spaceMedium
+                    )
+                ),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Icon(
                 imageVector = Icons.Filled.ArrowBack,
-                contentDescription = "back",
+                contentDescription = stringResource(id = R.string.back),
                 modifier = Modifier
                     .clickable {
                         viewModel.onEvent(DetailsEvent.OnBackClick)
@@ -96,7 +100,7 @@ fun DetailsScreen(
             )
             Icon(
                 imageVector = Icons.Filled.FavoriteBorder,
-                contentDescription = "favorite"
+                contentDescription = stringResource(id = R.string.favorite)
             )
         }
 
@@ -147,8 +151,8 @@ fun DetailsScreen(
                 if (show.premiered != null && show.ended != null) {
                     Text(
                         text = """
-                        from: ${show.premiered.month.name.lowercase()} of ${show.premiered.year}, 
-                        to: ${show.ended.month.name.lowercase()} of ${show.ended.year}
+                        ${stringResource(id = R.string.from)}: ${show.premiered.month.name.lowercase()} of ${show.premiered.year}, 
+                        ${stringResource(id = R.string.to)}: ${show.ended.month.name.lowercase()} of ${show.ended.year}
                         """.trimIndent(),
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight.Medium
@@ -172,7 +176,7 @@ fun DetailsScreen(
                     shape = Shapes.large
                 ) {
                     Text(
-                        text = "See all episodes",
+                        text = stringResource(id = R.string.see_all_episodes),
                         style = MaterialTheme.typography.body1,
                         color = MaterialTheme.colors.onPrimary,
                     )
@@ -181,13 +185,3 @@ fun DetailsScreen(
         }
     }
 }
-
-// LazyColumn() {
-//    items(episodes.keys.toList()) { season ->
-//        Text(
-//            text = season.toString(),
-//            style = MaterialTheme.typography.body1,
-//            color = Color.Gray,
-//        )
-//    }
-//}
