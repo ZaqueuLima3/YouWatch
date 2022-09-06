@@ -21,7 +21,7 @@ Discover and share your favorite movies. Create your watchlist and add yours mov
 - [ ] Save as favorite
 - [ ] Delete from favorite
 - [ ] User session
-- [ ] Allow user to set a PIN and use fingerptiny
+- [ ] Allow user to set a PIN and use fingerprint
 
 ## Bug Fixes
 
