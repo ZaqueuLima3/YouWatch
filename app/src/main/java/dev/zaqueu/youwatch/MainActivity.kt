@@ -21,11 +21,11 @@ import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
 import dev.zaqueu.core.navigation.BottomNavigationBar
 import dev.zaqueu.core.navigation.NavRoutes
-import dev.zaqueu.moviefinder.presentation.screens.details.DetailsScreen
 import dev.zaqueu.moviefinder.presentation.screens.episodes.EpisodesScreen
 import dev.zaqueu.moviefinder.presentation.screens.favorites.FavoritesScreen
 import dev.zaqueu.moviefinder.presentation.screens.home.HomeScreen
 import dev.zaqueu.moviefinder.presentation.screens.search.SearchScreen
+import dev.zaqueu.moviefinder.presentation.screens.showdetails.ShowDetailsScreen
 import dev.zaqueu.onboarding.presentation.screens.welcome.WelcomeScreen
 import dev.zaqueu.ui.theme.YouWatchTheme
 import dev.zaqueu.youwatch.navigation.navigate
@@ -87,7 +87,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         ) {
-                            DetailsScreen(
+                            ShowDetailsScreen(
                                 onNavigate = navController::navigate,
                                 showId = navBackStackEntry?.arguments?.getString(NavRoutes.DETAILS_SHOW_ID)
                             )

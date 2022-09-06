@@ -1,4 +1,4 @@
-package dev.zaqueu.moviefinder.presentation.screens.details
+package dev.zaqueu.moviefinder.presentation.screens.showdetails
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -43,17 +43,17 @@ import dev.zaqueu.ui.theme.Shapes
 import dev.zaqueu.ui.utils.events.UiEvents
 
 @Composable
-fun DetailsScreen(
+fun ShowDetailsScreen(
     onNavigate: (UiEvents.Navigate) -> Unit,
     showId: String?,
-    viewModel: DetailsViewModel = hiltViewModel()
+    viewModel: ShowDetailsViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
 
     LaunchedEffect(key1 = true) {
         if (showId != null) {
             viewModel.onEvent(
-                DetailsEvent.OnEnterScreen(showId)
+                ShowDetailsEvent.OnEnterScreen(showId)
             )
         }
         viewModel.uiEvent.collect { event ->
@@ -88,7 +88,7 @@ fun DetailsScreen(
                 contentDescription = stringResource(id = R.string.back),
                 modifier = Modifier
                     .clickable {
-                        viewModel.onEvent(DetailsEvent.OnBackClick)
+                        viewModel.onEvent(ShowDetailsEvent.OnBackClick)
                     }
             )
             Text(
@@ -171,7 +171,7 @@ fun DetailsScreen(
 
                 Button(
                     onClick = {
-                        viewModel.onEvent(DetailsEvent.OnSeeEpisodesClick(show.id.toString()))
+                        viewModel.onEvent(ShowDetailsEvent.OnSeeEpisodesClick(show.id.toString()))
                     },
                     modifier = Modifier
                         .fillMaxWidth(),
