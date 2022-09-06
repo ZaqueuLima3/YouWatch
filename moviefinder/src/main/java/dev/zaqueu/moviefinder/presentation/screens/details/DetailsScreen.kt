@@ -59,6 +59,7 @@ fun DetailsScreen(
         viewModel.uiEvent.collect { event ->
             when (event) {
                 is UiEvents.Navigate -> onNavigate(event)
+                else -> {}
             }
         }
     }
@@ -71,7 +72,6 @@ fun DetailsScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val show = viewModel.detailState.show
-        val episodes = viewModel.detailState.episodes
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -170,7 +170,9 @@ fun DetailsScreen(
                 Spacer(modifier = Modifier.height(spacing.spaceMedium))
 
                 Button(
-                    onClick = { },
+                    onClick = {
+                        viewModel.onEvent(DetailsEvent.OnSeeEpisodesClick(show.id.toString()))
+                    },
                     modifier = Modifier
                         .fillMaxWidth(),
                     shape = Shapes.large

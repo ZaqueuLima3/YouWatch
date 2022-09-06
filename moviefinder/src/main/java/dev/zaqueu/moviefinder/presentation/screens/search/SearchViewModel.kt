@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.zaqueu.core.navigation.NavRoutes
 import dev.zaqueu.moviefinder.domain.models.Show
 import dev.zaqueu.moviefinder.domain.usecases.SearchShows
 import dev.zaqueu.moviefinder.utils.helpers.debounce
@@ -16,6 +17,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -41,5 +43,15 @@ class SearchViewModel @Inject constructor(
     fun onSearchType(query: String) {
         searchQuery = query
         searchMovies(query)
+    }
+
+    fun onItemClicked(show: Show) {
+        viewModelScope.launch {
+            _uiEvent.send(
+                UiEvents.Navigate(
+                    "${NavRoutes.DETAILS.route}/${show.id}"
+                )
+            )
+        }
     }
 }

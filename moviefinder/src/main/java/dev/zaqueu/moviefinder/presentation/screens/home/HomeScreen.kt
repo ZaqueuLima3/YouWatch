@@ -54,7 +54,7 @@ fun HomeScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "${stringResource(id = R.string.hello)} Username,",
+                    text = stringResource(id = R.string.hello),
                     style = MaterialTheme.typography.h1,
                     color = Color.White,
                 )

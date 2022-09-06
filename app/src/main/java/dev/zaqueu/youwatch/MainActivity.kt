@@ -22,6 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.zaqueu.core.navigation.BottomNavigationBar
 import dev.zaqueu.core.navigation.NavRoutes
 import dev.zaqueu.moviefinder.presentation.screens.details.DetailsScreen
+import dev.zaqueu.moviefinder.presentation.screens.episodes.EpisodesScreen
 import dev.zaqueu.moviefinder.presentation.screens.favorites.FavoritesScreen
 import dev.zaqueu.moviefinder.presentation.screens.home.HomeScreen
 import dev.zaqueu.moviefinder.presentation.screens.search.SearchScreen
@@ -38,10 +39,11 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentRoute = navBackStackEntry?.destination?.route
-                val showBottomNavigation =
-                    currentRoute != null &&
-                    currentRoute.contains(NavRoutes.DETAILS.route).not() &&
-                    currentRoute != NavRoutes.WELCOME.route
+                val showBottomNavigation = currentRoute != null
+                        && currentRoute.contains(NavRoutes.DETAILS.route).not()
+                        && currentRoute.contains(NavRoutes.EPISODES.route).not()
+                        && currentRoute != NavRoutes.WELCOME.route
+
                 Scaffold(
                     bottomBar = {
                         if (showBottomNavigation) {
@@ -65,7 +67,9 @@ class MainActivity : ComponentActivity() {
 
                         composable(NavRoutes.SEARCH.route) {
                             InnerScreen(innerPadding) {
-                                SearchScreen()
+                                SearchScreen(
+                                    onNavigate = navController::navigate
+                                )
                             }
                         }
 
@@ -86,6 +90,20 @@ class MainActivity : ComponentActivity() {
                             DetailsScreen(
                                 onNavigate = navController::navigate,
                                 showId = navBackStackEntry?.arguments?.getString(NavRoutes.DETAILS_SHOW_ID)
+                            )
+                        }
+
+                        composable(
+                            route = "${NavRoutes.EPISODES.route}/{${NavRoutes.EPISODES_SHOW_ID}}",
+                            arguments = listOf(
+                                navArgument(NavRoutes.EPISODES_SHOW_ID) {
+                                    type = NavType.StringType
+                                }
+                            )
+                        ) {
+                            EpisodesScreen(
+                                onNavigate = navController::navigate,
+                                showId = navBackStackEntry?.arguments?.getString(NavRoutes.EPISODES_SHOW_ID)
                             )
                         }
                     }

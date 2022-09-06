@@ -17,8 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    private val getShow: GetShow,
-    private val getEpisodes: GetEpisodes
+    private val getShow: GetShow
 ) : ViewModel() {
     var detailState by mutableStateOf(DetailsState())
         private set
@@ -27,9 +26,10 @@ class DetailsViewModel @Inject constructor(
     val uiEvent = _uiEvent.receiveAsFlow()
 
     fun onEvent(event: DetailsEvent) {
-        when(event) {
+        when (event) {
             is DetailsEvent.OnEnterScreen -> fetchDetails(event.showId)
             is DetailsEvent.OnBackClick -> onBackClick()
+            is DetailsEvent.OnSeeEpisodesClick -> onSeeEpisodesClick(event.showId)
         }
     }
 
@@ -39,10 +39,14 @@ class DetailsViewModel @Inject constructor(
                 .onSuccess { show ->
                     detailState = detailState.copy(show = show)
                 }
-            getEpisodes(showId)
-                .onSuccess { episodes ->
-                    detailState = detailState.copy(episodes = episodes)
-                }
+        }
+    }
+
+    private fun onSeeEpisodesClick(showId: String) {
+        viewModelScope.launch {
+            _uiEvent.send(
+                UiEvents.Navigate("${NavRoutes.EPISODES.route}/${showId}")
+            )
         }
     }
 

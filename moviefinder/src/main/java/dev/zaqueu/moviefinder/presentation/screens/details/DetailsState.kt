@@ -4,6 +4,5 @@ import dev.zaqueu.moviefinder.domain.models.Episode
 import dev.zaqueu.moviefinder.domain.models.Show
 
 data class DetailsState(
-    val show: Show? = null,
-    val episodes: Map<Int, List<Episode>> = emptyMap()
+    val show: Show? = null
 )

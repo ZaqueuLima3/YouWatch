@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -14,6 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -24,13 +24,24 @@ import dev.zaqueu.moviefinder.R
 import dev.zaqueu.moviefinder.presentation.components.DefaultTextField
 import dev.zaqueu.moviefinder.presentation.components.MovieList
 import dev.zaqueu.ui.theme.LocalSpacing
-import kotlinx.coroutines.flow.first
+import dev.zaqueu.ui.utils.events.UiEvents
 
 @Composable
 fun SearchScreen(
+    onNavigate: (UiEvents) -> Unit,
     viewModel: SearchViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
+
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvents.Navigate -> onNavigate(event)
+                else -> Unit
+            }
+        }
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize(),
@@ -75,7 +86,9 @@ fun SearchScreen(
                 ) {
                     MovieList(
                         shows = viewModel.showsFlow,
-                        onItemClick = { }
+                        onItemClick = { show ->
+                            viewModel.onItemClicked(show)
+                        }
                     )
                 }
             }

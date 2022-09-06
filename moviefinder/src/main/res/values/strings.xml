@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello</string>
+    <string name="hello">Hello,</string>
     <string name="find_your_next_movie">Find your next series or movies.</string>
     <string name="rating">Rating</string>
     <string name="summary">Summary</string>
@@ -9,5 +9,6 @@
     <string name="from">from</string>
     <string name="to">to</string>
     <string name="see_all_episodes">See all episodes</string>
-    <string name="find_your_movies">"Find your movies"</string>
+    <string name="find_your_movies">Find your movies</string>
+    <string name="season">Season</string>
 </resources>
