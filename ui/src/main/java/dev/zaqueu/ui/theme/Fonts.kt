@@ -15,7 +15,7 @@ val PoppinsFamily = FontFamily(
 )
 
 object FontSize {
-    val extraSmall: TextUnit = 12.sp
+    val extraSmall: TextUnit = 11.sp
     val small: TextUnit = 14.sp
     val medium: TextUnit = 16.sp
     val large: TextUnit = 18.sp

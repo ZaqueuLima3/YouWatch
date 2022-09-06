@@ -15,7 +15,10 @@ import dev.zaqueu.ui.theme.LocalSpacing
 import kotlinx.coroutines.flow.Flow
 
 @Composable
-fun MovieList(shows: Flow<PagingData<Show>>) {
+fun MovieList(
+    shows: Flow<PagingData<Show>>,
+    onItemClick: (item: Show) -> Unit
+) {
     val lazyShowsItems = shows.collectAsLazyPagingItems()
     val spacing = LocalSpacing.current
 
@@ -23,13 +26,13 @@ fun MovieList(shows: Flow<PagingData<Show>>) {
         modifier = Modifier.fillMaxSize(),
     ) {
         items(lazyShowsItems) { show ->
-            MovieCard(
-                name = show?.name.orEmpty(),
-                cover = show?.cover,
-                rating = show?.rating,
-                summary = show?.summary
-            )
-            Spacer(modifier = Modifier.height(spacing.spaceMedium))
+            if (show != null) {
+                MovieCard(
+                    show,
+                    onItemClick = onItemClick
+                )
+                Spacer(modifier = Modifier.height(spacing.spaceMedium))
+            }
         }
 
         lazyShowsItems.apply {

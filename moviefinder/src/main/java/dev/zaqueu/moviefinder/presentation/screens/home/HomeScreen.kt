@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,6 +30,14 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvents.Navigate -> onNavigate(event)
+                else -> Unit
+            }
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -55,7 +64,6 @@ fun HomeScreen(
                 )
             }
 
-
             Spacer(modifier = Modifier.height(spacing.spaceSmall))
 
             Box(
@@ -64,7 +72,12 @@ fun HomeScreen(
                     .padding(spacing.spaceMedium),
                 contentAlignment = Alignment.Center
             ) {
-                MovieList(shows = viewModel.showsFlow)
+                MovieList(
+                    shows = viewModel.showsFlow,
+                    onItemClick = { show ->
+                        viewModel.onItemClicked(show)
+                    }
+                )
             }
         }
     }

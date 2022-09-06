@@ -6,4 +6,8 @@ sealed class NavRoutes(val route: String) {
     object SEARCH : NavRoutes("search")
     object FAVORITE : NavRoutes("favorite")
     object DETAILS : NavRoutes("details")
+
+    companion object {
+        const val DETAILS_SHOW_ID = "showId"
+    }
 }

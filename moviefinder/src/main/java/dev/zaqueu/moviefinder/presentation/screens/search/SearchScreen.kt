@@ -72,7 +72,10 @@ fun SearchScreen(
                         .navigationBarsPadding(),
                     contentAlignment = Alignment.Center
                 ) {
-                    MovieList(shows = viewModel.showsFlow)
+                    MovieList(
+                        shows = viewModel.showsFlow,
+                        onItemClick = { }
+                    )
                 }
             }
         }

@@ -1,6 +1,7 @@
 package dev.zaqueu.moviefinder.presentation.components
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,16 +25,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import dev.zaqueu.moviefinder.R
+import dev.zaqueu.moviefinder.domain.models.Show
 import dev.zaqueu.moviefinder.utils.extensions.parseHtml
 import dev.zaqueu.ui.theme.LocalSpacing
 import dev.zaqueu.ui.theme.Shapes
 
 @Composable
 fun MovieCard(
-    name: String,
-    cover: String?,
-    rating: Double?,
-    summary: String?
+    show: Show,
+    onItemClick: (item: Show) -> Unit
 ) {
     val spacing = LocalSpacing.current
     Row(
@@ -46,9 +46,12 @@ fun MovieCard(
                 brush = SolidColor(Color.LightGray)
             )
             .padding(spacing.spaceMedium)
+            .clickable(
+                onClick = { onItemClick(show) }
+            )
     ) {
         AsyncImage(
-            model = cover,
+            model = show.cover,
             contentDescription = null,
             modifier = Modifier
                 .height(200.dp)
@@ -60,31 +63,31 @@ fun MovieCard(
         Spacer(modifier = Modifier.width(spacing.spaceSmall))
         Column() {
             Text(
-                text = name,
+                text = show.name,
                 style = MaterialTheme.typography.h2,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
 
-            if (rating != null) {
+            if (show.rating != null) {
                 Text(
                     text = stringResource(id = R.string.rating),
                     style = MaterialTheme.typography.body1,
                 )
                 Text(
-                    text = rating.toString(),
+                    text = show.rating.toString(),
                     style = MaterialTheme.typography.body1,
                     fontWeight = FontWeight.Bold
                 )
             }
 
-            if (summary != null && summary.isNotBlank()) {
+            if (show.summary.isNotBlank()) {
                 Text(
                     text = stringResource(id = R.string.summary),
                     style = MaterialTheme.typography.body1,
                 )
                 Text(
-                    text = summary.parseHtml(),
+                    text = show.summary.parseHtml(),
                     style = MaterialTheme.typography.body1,
                     color = Color.Gray,
                     maxLines = 3,

@@ -12,13 +12,16 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
 import dev.zaqueu.core.navigation.BottomNavigationBar
 import dev.zaqueu.core.navigation.NavRoutes
+import dev.zaqueu.moviefinder.presentation.screens.details.DetailsScreen
 import dev.zaqueu.moviefinder.presentation.screens.favorites.FavoritesScreen
 import dev.zaqueu.moviefinder.presentation.screens.home.HomeScreen
 import dev.zaqueu.moviefinder.presentation.screens.search.SearchScreen
@@ -35,9 +38,13 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentRoute = navBackStackEntry?.destination?.route
+                val showBottomNavigation =
+                    currentRoute != null &&
+                    currentRoute.contains(NavRoutes.DETAILS.route).not() &&
+                    currentRoute != NavRoutes.WELCOME.route
                 Scaffold(
                     bottomBar = {
-                        if (currentRoute != null && currentRoute != NavRoutes.WELCOME.route) {
+                        if (showBottomNavigation) {
                             BottomNavigationBar(navController = navController)
                         }
                     }
@@ -66,6 +73,20 @@ class MainActivity : ComponentActivity() {
                             InnerScreen(innerPadding) {
                                 FavoritesScreen()
                             }
+                        }
+
+                        composable(
+                            route = "${NavRoutes.DETAILS.route}/{${NavRoutes.DETAILS_SHOW_ID}}",
+                            arguments = listOf(
+                                navArgument(NavRoutes.DETAILS_SHOW_ID) {
+                                    type = NavType.StringType
+                                }
+                            )
+                        ) {
+                            DetailsScreen(
+                                onNavigate = navController::navigate,
+                                showId = navBackStackEntry?.arguments?.getString(NavRoutes.DETAILS_SHOW_ID)
+                            )
                         }
                     }
                 }

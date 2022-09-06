@@ -10,6 +10,11 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = FontSize.small
     ),
+    body2 = TextStyle(
+        fontFamily = PoppinsFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = FontSize.extraSmall
+    ),
     h1 = TextStyle(
         fontFamily = PoppinsFamily,
         fontWeight = FontWeight.Bold,

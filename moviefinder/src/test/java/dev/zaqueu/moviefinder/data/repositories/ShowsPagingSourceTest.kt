@@ -2,7 +2,9 @@ package dev.zaqueu.moviefinder.data.repositories
 
 import androidx.paging.PagingSource.LoadParams.Refresh
 import androidx.paging.PagingSource.LoadResult
+import dev.zaqueu.moviefinder.data.remote.dtos.PagingShowsDto
 import dev.zaqueu.moviefinder.data.remote.mappers.mapToModel
+import dev.zaqueu.moviefinder.data.remote.mappers.mapToShows
 import dev.zaqueu.moviefinder.data.remote.services.TvMazeApi
 import dev.zaqueu.moviefinder.domain.models.Show
 import dev.zaqueu.moviefinder.fixtures.createShowDto
@@ -30,7 +32,6 @@ class ShowsPagingSourceTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        showsPagingSource = ShowsPagingSource(api)
     }
 
     @Test
@@ -38,6 +39,14 @@ class ShowsPagingSourceTest {
         coEvery {
             api.getAllMovies(any())
         } returns mockShows
+
+        showsPagingSource = ShowsPagingSource { page ->
+            val shows = api.getAllMovies(page).mapToShows()
+            PagingShowsDto(
+                shows = shows,
+                isPaginated = true
+            )
+        }
 
         Assert.assertEquals(
             LoadResult.Page(
@@ -66,6 +75,14 @@ class ShowsPagingSourceTest {
         coEvery {
             api.getAllMovies(any())
         } throws exception
+
+        showsPagingSource = ShowsPagingSource { page ->
+            val shows = api.getAllMovies(page).mapToShows()
+            PagingShowsDto(
+                shows = shows,
+                isPaginated = true
+            )
+        }
 
         Assert.assertEquals(
             LoadResult.Error<Int, Show>(exception),
