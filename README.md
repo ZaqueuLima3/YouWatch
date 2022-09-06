@@ -27,6 +27,8 @@ Discover and share your favorite movies. Create your watchlist and add yours mov
 
 - [ ] Search debounce
 - [ ] Infinite stack navigation
+- [ ] Show "Se all episodes" button only for series
+
 ## Tech Stack
 
 **Techs:** 
