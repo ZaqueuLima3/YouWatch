@@ -20,6 +20,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
+import dev.zaqueu.core.domain.preferences.Preferences
 import dev.zaqueu.core.navigation.BottomNavigationBar
 import dev.zaqueu.core.navigation.NavRoutes
 import dev.zaqueu.moviefinder.presentation.screens.episodedetails.EpisodeDetailsScreen
@@ -31,11 +32,16 @@ import dev.zaqueu.moviefinder.presentation.screens.showdetails.ShowDetailsScreen
 import dev.zaqueu.onboarding.presentation.screens.welcome.WelcomeScreen
 import dev.zaqueu.ui.theme.YouWatchTheme
 import dev.zaqueu.youwatch.navigation.navigate
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @Inject
+    lateinit var preferences: Preferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val shouldShowWelcomeScreen = preferences.loadShouldShowWelcomeScreen()
         setContent {
             YouWatchTheme {
                 val navController = rememberNavController()
@@ -47,6 +53,8 @@ class MainActivity : ComponentActivity() {
                         && currentRoute.contains(NavRoutes.EPISODES.route).not()
                         && currentRoute != NavRoutes.WELCOME.route
 
+                val startDestination =
+                    if (shouldShowWelcomeScreen) NavRoutes.WELCOME.route else NavRoutes.HOME.route
                 Scaffold(
                     bottomBar = {
                         if (showBottomNavigation) {
@@ -57,7 +65,7 @@ class MainActivity : ComponentActivity() {
                 ) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = NavRoutes.WELCOME.route
+                        startDestination = startDestination
                     ) {
                         composable(NavRoutes.WELCOME.route) {
                             WelcomeScreen(onNavigate = navController::navigate)

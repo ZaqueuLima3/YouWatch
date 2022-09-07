@@ -18,8 +18,8 @@ Discover and share your favorite movies. Create your watchlist and add yours mov
 - [x] Open show details
 - [x] List show's episodes
 - [x] Open episode details
-- [ ] Save as favorite
-- [ ] Delete from favorite
+- [x] Save as favorite
+- [x] Delete from favorite
 - [ ] User session
 - [ ] Allow user to set a PIN and use fingerprint
 

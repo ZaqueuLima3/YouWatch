@@ -13,6 +13,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,6 +21,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.hilt.navigation.compose.hiltViewModel
 import dev.zaqueu.core.navigation.NavRoutes
 import dev.zaqueu.onboarding.R
 import dev.zaqueu.onboarding.presentation.components.DefaultButton
@@ -28,9 +30,19 @@ import dev.zaqueu.ui.utils.events.UiEvents
 
 @Composable
 fun WelcomeScreen(
-    onNavigate: (UiEvents.Navigate) -> Unit,
+    onNavigate: (UiEvents) -> Unit,
+    viewModel: WelcomeViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
+
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvents.NavigateAndClean -> onNavigate(event)
+                else -> {}
+            }
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -77,9 +89,7 @@ fun WelcomeScreen(
 
         DefaultButton(
             text = stringResource(R.string.get_stared),
-            onClick = {
-                onNavigate(UiEvents.Navigate(NavRoutes.HOME.route))
-            },
+            onClick = viewModel::onGetStartedClick,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(spacing.spaceLarge)
