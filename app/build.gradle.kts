@@ -58,6 +58,7 @@ dependencies {
     implementation(project(Modules.onboarding))
     implementation(project(Modules.moviefinder))
     implementation(project(Modules.core))
+    implementation(project(Modules.database))
     implementation(project(Modules.ui))
 
     implementation(AndroidX.coreKtx)

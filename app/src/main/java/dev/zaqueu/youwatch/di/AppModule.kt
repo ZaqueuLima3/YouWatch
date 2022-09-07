@@ -1,4 +1,4 @@
-package dev.zaqueu.core.data.di
+package dev.zaqueu.youwatch.di
 
 import android.app.Application
 import android.content.Context
@@ -13,7 +13,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object CoreDataModule {
+object AppModule {
     @Provides
     @Singleton
     fun sharedPreferences(
