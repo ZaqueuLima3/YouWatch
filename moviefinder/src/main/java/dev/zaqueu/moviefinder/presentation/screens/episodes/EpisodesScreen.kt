@@ -22,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.zaqueu.moviefinder.R
 import dev.zaqueu.moviefinder.presentation.components.EpisodeCard
+import dev.zaqueu.moviefinder.presentation.components.Loading
 import dev.zaqueu.moviefinder.presentation.components.TabBarHeader
 import dev.zaqueu.ui.theme.LocalSpacing
 import dev.zaqueu.ui.utils.events.UiEvents
@@ -47,6 +48,14 @@ fun EpisodesScreen(
                 else -> {}
             }
         }
+    }
+
+    if (viewModel.episodesState.isLoading) {
+        Loading(
+            modifier = Modifier
+                .fillMaxSize()
+        )
+        return
     }
 
     Column(

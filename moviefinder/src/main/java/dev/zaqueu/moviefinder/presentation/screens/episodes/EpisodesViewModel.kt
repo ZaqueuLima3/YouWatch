@@ -36,7 +36,13 @@ class EpisodesViewModel @Inject constructor(
         viewModelScope.launch {
             getEpisodes(showId)
                 .onSuccess { episodes ->
-                    episodesState = episodesState.copy(episodes = episodes)
+                    episodesState = episodesState.copy(
+                        episodes = episodes,
+                        isLoading = false
+                    )
+                }
+                .onFailure {
+                    episodesState = episodesState.copy(isLoading = false)
                 }
         }
     }
