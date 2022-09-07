@@ -5,11 +5,14 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
+import dev.zaqueu.moviefinder.domain.repositories.FavoritesRepository
 import dev.zaqueu.moviefinder.domain.repositories.ShowsRepository
 import dev.zaqueu.moviefinder.domain.usecases.GetAllShows
+import dev.zaqueu.moviefinder.domain.usecases.GetAllShowsFromFavorites
 import dev.zaqueu.moviefinder.domain.usecases.GetEpisode
 import dev.zaqueu.moviefinder.domain.usecases.GetEpisodes
 import dev.zaqueu.moviefinder.domain.usecases.GetShow
+import dev.zaqueu.moviefinder.domain.usecases.SaveShowAsFavorite
 import dev.zaqueu.moviefinder.domain.usecases.SearchShows
 
 @Module
@@ -62,6 +65,26 @@ object DomainLayerModule {
     ): GetEpisode {
         return GetEpisode(
             showsRepository
+        )
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideSaveShowAsFavorite(
+        favoritesRepository: FavoritesRepository
+    ): SaveShowAsFavorite {
+        return SaveShowAsFavorite(
+            favoritesRepository
+        )
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetAllShowsFromFavorites(
+        favoritesRepository: FavoritesRepository
+    ): GetAllShowsFromFavorites {
+        return GetAllShowsFromFavorites(
+            favoritesRepository
         )
     }
 }
