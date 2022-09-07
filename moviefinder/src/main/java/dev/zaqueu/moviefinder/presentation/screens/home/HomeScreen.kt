@@ -39,46 +39,43 @@ fun HomeScreen(
         }
     }
 
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
     ) {
         Column(
+            modifier = Modifier
+                .height(150.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.colors.primary),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
-                modifier = Modifier
-                    .height(150.dp)
-                    .fillMaxWidth()
-                    .background(MaterialTheme.colors.primary),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = stringResource(id = R.string.hello),
-                    style = MaterialTheme.typography.h1,
-                    color = Color.White,
-                )
-                Text(
-                    text = stringResource(id = R.string.find_your_next_movie),
-                    color = Color.LightGray,
-                )
-            }
+            Text(
+                text = stringResource(id = R.string.hello),
+                style = MaterialTheme.typography.h1,
+                color = Color.White,
+            )
+            Text(
+                text = stringResource(id = R.string.find_your_next_movie),
+                color = Color.LightGray,
+            )
+        }
 
-            Spacer(modifier = Modifier.height(spacing.spaceSmall))
+        Spacer(modifier = Modifier.height(spacing.spaceSmall))
 
-            Box(
-                modifier= Modifier
-                    .fillMaxSize()
-                    .padding(spacing.spaceMedium),
-                contentAlignment = Alignment.Center
-            ) {
-                MovieList(
-                    shows = viewModel.showsFlow,
-                    onItemClick = { show ->
-                        viewModel.onItemClicked(show)
-                    }
-                )
-            }
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(spacing.spaceMedium),
+            contentAlignment = Alignment.Center
+        ) {
+            MovieList(
+                shows = viewModel.showsFlow,
+                onItemClick = { show ->
+                    viewModel.onItemClicked(show)
+                }
+            )
         }
     }
 }
