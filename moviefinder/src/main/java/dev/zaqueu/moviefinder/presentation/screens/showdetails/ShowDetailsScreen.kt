@@ -1,10 +1,7 @@
 package dev.zaqueu.moviefinder.presentation.screens.showdetails
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,11 +13,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -32,11 +27,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import dev.zaqueu.moviefinder.R
+import dev.zaqueu.moviefinder.presentation.components.DetailsCover
+import dev.zaqueu.moviefinder.presentation.components.Summary
+import dev.zaqueu.moviefinder.presentation.components.TabBarHeader
 import dev.zaqueu.moviefinder.utils.extensions.parseHtml
 import dev.zaqueu.ui.theme.LocalSpacing
 import dev.zaqueu.ui.theme.Shapes
@@ -66,43 +63,15 @@ fun ShowDetailsScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(
-                PaddingValues(spacing.spaceMedium)
-            ),
+            .padding(spacing.spaceMedium),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val show = viewModel.detailState.show
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    PaddingValues(
-                        vertical = spacing.spaceMedium
-                    )
-                ),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Icon(
-                imageVector = Icons.Filled.ArrowBack,
-                contentDescription = stringResource(id = R.string.back),
-                modifier = Modifier
-                    .clickable {
-                        viewModel.onEvent(ShowDetailsEvent.OnBackClick)
-                    }
-            )
-            Text(
-                text = show?.name.orEmpty(),
-                style = MaterialTheme.typography.body1,
-                fontWeight = FontWeight.Bold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-            Icon(
-                imageVector = Icons.Filled.FavoriteBorder,
-                contentDescription = stringResource(id = R.string.favorite)
-            )
-        }
+        TabBarHeader(
+            title = show?.name.orEmpty(),
+            icon = Icons.Filled.FavoriteBorder,
+            onBackClick = { viewModel.onEvent(ShowDetailsEvent.OnBackClick) }
+        )
 
         Column(
             modifier = Modifier
@@ -113,17 +82,7 @@ fun ShowDetailsScreen(
             if (show != null) {
                 Spacer(modifier = Modifier.height(spacing.spaceLarge))
 
-                AsyncImage(
-                    model = show.cover,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .height(300.dp)
-                        .width(280.dp)
-                        .clip(Shapes.large)
-                        .align(Alignment.CenterHorizontally),
-                    contentScale = ContentScale.Crop,
-                    placeholder = painterResource(id = R.drawable.placeholder),
-                )
+                DetailsCover(image = show.cover)
 
                 LazyRow(
                     modifier = Modifier
@@ -141,12 +100,7 @@ fun ShowDetailsScreen(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(spacing.spaceMedium))
-
-                Text(
-                    text = stringResource(id = R.string.summary),
-                    style = MaterialTheme.typography.h1,
-                )
+                Spacer(modifier = Modifier.height(spacing.spaceSmall))
 
                 if (show.premiered != null && show.ended != null) {
                     Text(
@@ -161,11 +115,7 @@ fun ShowDetailsScreen(
 
                 Spacer(modifier = Modifier.height(spacing.spaceMedium))
 
-                Text(
-                    text = show.summary.parseHtml(),
-                    style = MaterialTheme.typography.body1,
-                    color = Color.Gray,
-                )
+                Summary(summary = show.summary.parseHtml())
 
                 Spacer(modifier = Modifier.height(spacing.spaceMedium))
 
