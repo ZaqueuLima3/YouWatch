@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -38,6 +39,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             YouWatchTheme {
                 val navController = rememberNavController()
+                val scaffoldState = rememberScaffoldState()
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentRoute = navBackStackEntry?.destination?.route
                 val showBottomNavigation = currentRoute != null
@@ -50,7 +52,8 @@ class MainActivity : ComponentActivity() {
                         if (showBottomNavigation) {
                             BottomNavigationBar(navController = navController)
                         }
-                    }
+                    },
+                    scaffoldState = scaffoldState
                 ) { innerPadding ->
                     NavHost(
                         navController = navController,
@@ -89,6 +92,7 @@ class MainActivity : ComponentActivity() {
                             )
                         ) { backStackEntry ->
                             ShowDetailsScreen(
+                                scaffoldState,
                                 onNavigate = navController::navigate,
                                 showId = backStackEntry.arguments?.getString(NavRoutes.DETAILS_SHOW_ID)
                             )

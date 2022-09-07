@@ -17,17 +17,11 @@ Discover and share your favorite movies. Create your watchlist and add yours mov
 - [x] Search a show 
 - [x] Open show details
 - [x] List show's episodes
-- [ ] Open episode details
+- [x] Open episode details
 - [ ] Save as favorite
 - [ ] Delete from favorite
 - [ ] User session
 - [ ] Allow user to set a PIN and use fingerprint
-
-## Bug Fixes
-
-- [ ] Search debounce
-- [ ] Infinite stack navigation
-- [ ] Show "Se all episodes" button only for series
 
 ## Tech Stack
 

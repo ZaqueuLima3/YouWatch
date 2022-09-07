@@ -11,4 +11,5 @@
     <string name="see_all_episodes">See all episodes</string>
     <string name="find_your_movies">Find your movies</string>
     <string name="season">Season</string>
+    <string name="something_went_wrong">Sorry! Something went wrong. Please try again later</string>
 </resources>

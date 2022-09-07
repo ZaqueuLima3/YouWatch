@@ -14,6 +14,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -22,6 +23,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -39,10 +41,12 @@ import dev.zaqueu.ui.utils.events.UiEvents
 
 @Composable
 fun ShowDetailsScreen(
+    scaffoldState: ScaffoldState,
     onNavigate: (UiEvents) -> Unit,
     showId: String?,
     viewModel: ShowDetailsViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     val spacing = LocalSpacing.current
 
     LaunchedEffect(key1 = true) {
@@ -55,6 +59,11 @@ fun ShowDetailsScreen(
             when (event) {
                 is UiEvents.Navigate -> onNavigate(event)
                 is UiEvents.Pop -> onNavigate(event)
+                is UiEvents.ShowSnackBar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = event.message.toString(context)
+                    )
+                }
                 else -> {}
             }
         }
