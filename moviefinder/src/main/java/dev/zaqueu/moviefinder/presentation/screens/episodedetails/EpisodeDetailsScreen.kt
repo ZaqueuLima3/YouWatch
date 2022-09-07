@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.zaqueu.moviefinder.R
 import dev.zaqueu.moviefinder.presentation.components.Cover
+import dev.zaqueu.moviefinder.presentation.components.Loading
 import dev.zaqueu.moviefinder.presentation.components.Summary
 import dev.zaqueu.moviefinder.presentation.components.TabBarHeader
 import dev.zaqueu.moviefinder.utils.extensions.parseHtml
@@ -53,9 +54,17 @@ fun EpisodeDetailsScreen(
         }
     }
 
+    if (viewModel.episodeDetailState.isLoading) {
+        Loading(
+            modifier = Modifier
+                .fillMaxSize()
+        )
+        return
+    }
+
     if (episode != null) {
         Column(
-            modifier = androidx.compose.ui.Modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .padding(spacing.spaceMedium),
         ) {

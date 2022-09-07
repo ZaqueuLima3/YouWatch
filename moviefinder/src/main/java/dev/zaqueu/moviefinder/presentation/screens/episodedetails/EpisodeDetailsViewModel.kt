@@ -34,7 +34,13 @@ class EpisodeDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             getEpisode(episodeId)
                 .onSuccess { episode ->
-                    episodeDetailState = episodeDetailState.copy(episode = episode)
+                    episodeDetailState = episodeDetailState.copy(
+                        episode = episode,
+                        isLoading = false
+                    )
+                }
+                .onFailure {
+                    episodeDetailState = episodeDetailState.copy(isLoading = false)
                 }
         }
     }
