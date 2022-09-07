@@ -61,4 +61,13 @@ class ShowsRepositoryImpl(
             Result.failure(e)
         }
     }
+
+    override suspend fun getEpisode(episodeId: String): Result<Episode> {
+        return try {
+            val episode = api.getEpisode(episodeId).mapToEpisode()
+            Result.success(episode)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 }

@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.zaqueu.core.navigation.NavRoutes
 import dev.zaqueu.moviefinder.domain.usecases.GetEpisodes
 import dev.zaqueu.ui.utils.events.UiEvents
 import kotlinx.coroutines.channels.Channel
@@ -42,7 +43,7 @@ class EpisodesViewModel @Inject constructor(
 
     private fun onEpisodesClick(episodeId: Int) {
         viewModelScope.launch {
-            // TODO: Episode Detail
+            _uiEvent.send(UiEvents.Navigate("${NavRoutes.EPISODEDETAILS.route}/${episodeId}"))
         }
     }
 

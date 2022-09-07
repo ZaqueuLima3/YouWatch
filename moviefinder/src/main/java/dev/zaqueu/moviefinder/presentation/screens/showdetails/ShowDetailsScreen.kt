@@ -22,18 +22,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.compose.AsyncImage
 import dev.zaqueu.moviefinder.R
-import dev.zaqueu.moviefinder.presentation.components.DetailsCover
+import dev.zaqueu.moviefinder.presentation.components.Cover
 import dev.zaqueu.moviefinder.presentation.components.Summary
 import dev.zaqueu.moviefinder.presentation.components.TabBarHeader
+import dev.zaqueu.moviefinder.utils.extensions.capitalized
 import dev.zaqueu.moviefinder.utils.extensions.parseHtml
 import dev.zaqueu.ui.theme.LocalSpacing
 import dev.zaqueu.ui.theme.Shapes
@@ -41,7 +38,7 @@ import dev.zaqueu.ui.utils.events.UiEvents
 
 @Composable
 fun ShowDetailsScreen(
-    onNavigate: (UiEvents.Navigate) -> Unit,
+    onNavigate: (UiEvents) -> Unit,
     showId: String?,
     viewModel: ShowDetailsViewModel = hiltViewModel()
 ) {
@@ -56,6 +53,7 @@ fun ShowDetailsScreen(
         viewModel.uiEvent.collect { event ->
             when (event) {
                 is UiEvents.Navigate -> onNavigate(event)
+                is UiEvents.Pop -> onNavigate(event)
                 else -> {}
             }
         }
@@ -82,7 +80,14 @@ fun ShowDetailsScreen(
             if (show != null) {
                 Spacer(modifier = Modifier.height(spacing.spaceLarge))
 
-                DetailsCover(image = show.cover)
+                Cover(
+                    image = show.cover,
+                    modifier = Modifier
+                        .height(300.dp)
+                        .width(280.dp)
+                        .clip(Shapes.large)
+                        .align(Alignment.CenterHorizontally)
+                )
 
                 LazyRow(
                     modifier = Modifier
@@ -104,13 +109,16 @@ fun ShowDetailsScreen(
 
                 if (show.premiered != null && show.ended != null) {
                     Text(
-                        text = """
-                        ${stringResource(id = R.string.from)}: ${show.premiered.month.name.lowercase()} of ${show.premiered.year}, 
-                        ${stringResource(id = R.string.to)}: ${show.ended.month.name.lowercase()} of ${show.ended.year}
-                        """.trimIndent(),
+                        text = stringResource(id = R.string.from, show.premiered.month.name.capitalized(), show.premiered.year),
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight.Medium
                     )
+                    Text(
+                        text = stringResource(id = R.string.to, show.ended.month.name.capitalized(), show.ended.year),
+                        style = MaterialTheme.typography.body1,
+                        fontWeight = FontWeight.Medium
+                    )
+
                 }
 
                 Spacer(modifier = Modifier.height(spacing.spaceMedium))

@@ -23,7 +23,7 @@ fun Summary(
             style = MaterialTheme.typography.h1,
         )
 
-        Spacer(modifier = Modifier.height(spacing.spaceMedium))
+        Spacer(modifier = Modifier.height(spacing.spaceSmall))
 
         Text(
             text = summary,

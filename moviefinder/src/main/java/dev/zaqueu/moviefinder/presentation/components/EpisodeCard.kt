@@ -53,16 +53,14 @@ fun EpisodeCard(
                 onClick = { onItemClick() }
             )
     ) {
-        AsyncImage(
-            model = image,
-            contentDescription = null,
+        Cover(
+            image = image,
             modifier = Modifier
                 .height(200.dp)
                 .fillMaxWidth()
                 .clip(Shapes.large),
-            contentScale = ContentScale.Crop,
-            placeholder = painterResource(id = R.drawable.placeholder),
         )
+
         Spacer(modifier = Modifier.height(spacing.spaceSmall))
         Column() {
             Text(

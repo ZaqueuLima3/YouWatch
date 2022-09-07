@@ -21,6 +21,7 @@ import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
 import dev.zaqueu.core.navigation.BottomNavigationBar
 import dev.zaqueu.core.navigation.NavRoutes
+import dev.zaqueu.moviefinder.presentation.screens.episodedetails.EpisodeDetailsScreen
 import dev.zaqueu.moviefinder.presentation.screens.episodes.EpisodesScreen
 import dev.zaqueu.moviefinder.presentation.screens.favorites.FavoritesScreen
 import dev.zaqueu.moviefinder.presentation.screens.home.HomeScreen
@@ -86,10 +87,10 @@ class MainActivity : ComponentActivity() {
                                     type = NavType.StringType
                                 }
                             )
-                        ) {
+                        ) { backStackEntry ->
                             ShowDetailsScreen(
                                 onNavigate = navController::navigate,
-                                showId = navBackStackEntry?.arguments?.getString(NavRoutes.DETAILS_SHOW_ID)
+                                showId = backStackEntry.arguments?.getString(NavRoutes.DETAILS_SHOW_ID)
                             )
                         }
 
@@ -100,10 +101,24 @@ class MainActivity : ComponentActivity() {
                                     type = NavType.StringType
                                 }
                             )
-                        ) {
+                        ) { backStackEntry ->
                             EpisodesScreen(
                                 onNavigate = navController::navigate,
-                                showId = navBackStackEntry?.arguments?.getString(NavRoutes.EPISODES_SHOW_ID)
+                                showId = backStackEntry.arguments?.getString(NavRoutes.EPISODES_SHOW_ID)
+                            )
+                        }
+
+                        composable(
+                            route = "${NavRoutes.EPISODEDETAILS.route}/{${NavRoutes.EPISODE_DETAILS_ID}}",
+                            arguments = listOf(
+                                navArgument(NavRoutes.EPISODE_DETAILS_ID) {
+                                    type = NavType.StringType
+                                }
+                            )
+                        ) { backStackEntry ->
+                            EpisodeDetailsScreen(
+                                onNavigate = navController::navigate,
+                                episodeId = backStackEntry.arguments?.getString(NavRoutes.EPISODE_DETAILS_ID)
                             )
                         }
                     }

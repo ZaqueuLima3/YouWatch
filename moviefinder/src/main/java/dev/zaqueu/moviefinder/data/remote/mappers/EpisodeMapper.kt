@@ -13,7 +13,7 @@ fun EpisodeDto.mapToEpisode(): Episode {
         name = name,
         number = number,
         season = season,
-        summary = summary,
+        summary = summary.orEmpty(),
         image = image?.medium
     )
 }

@@ -20,6 +20,8 @@ interface ShowsRepository {
 
     suspend fun getShowEpisodes(showId: String): Result<Map<Int, List<Episode>>>
 
+    suspend fun getEpisode(episodeId: String): Result<Episode>
+
     private fun getDefaultPageConfig(): PagingConfig {
         return PagingConfig(pageSize = DEFAULT_PAGE_SIZE, enablePlaceholders = false)
     }

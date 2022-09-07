@@ -94,7 +94,6 @@ fun EpisodesScreen(
                     }
                     Spacer(modifier = Modifier.height(spacing.spaceMedium))
                 }
-
             }
         }
     }

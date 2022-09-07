@@ -28,6 +28,11 @@ interface TvMazeApi {
         @Path("showId") showId: String
     ): List<EpisodeDto>
 
+    @GET("episodes/{episodeId}")
+    suspend fun getEpisode(
+        @Path("episodeId") episodeId: String
+    ): EpisodeDto
+
     companion object {
         const val BASE_URL = "https://api.tvmaze.com/"
     }

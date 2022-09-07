@@ -51,9 +51,7 @@ class ShowDetailsViewModel @Inject constructor(
 
     private fun onBackClick() {
         viewModelScope.launch {
-            _uiEvent.send(
-                UiEvents.Navigate(NavRoutes.HOME.route)
-            )
+            _uiEvent.send(UiEvents.Pop)
         }
     }
 }

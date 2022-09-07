@@ -7,6 +7,7 @@ import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
 import dev.zaqueu.moviefinder.domain.repositories.ShowsRepository
 import dev.zaqueu.moviefinder.domain.usecases.GetAllShows
+import dev.zaqueu.moviefinder.domain.usecases.GetEpisode
 import dev.zaqueu.moviefinder.domain.usecases.GetEpisodes
 import dev.zaqueu.moviefinder.domain.usecases.GetShow
 import dev.zaqueu.moviefinder.domain.usecases.SearchShows
@@ -50,6 +51,16 @@ object DomainLayerModule {
         showsRepository: ShowsRepository
     ): GetEpisodes {
         return GetEpisodes(
+            showsRepository
+        )
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetEpisode(
+        showsRepository: ShowsRepository
+    ): GetEpisode {
+        return GetEpisode(
             showsRepository
         )
     }

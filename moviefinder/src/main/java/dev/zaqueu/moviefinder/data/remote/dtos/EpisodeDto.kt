@@ -5,6 +5,6 @@ data class EpisodeDto(
     val name: String,
     val number: Int,
     val season: Int,
-    val summary: String,
+    val summary: String?,
     val image: Image?
 )

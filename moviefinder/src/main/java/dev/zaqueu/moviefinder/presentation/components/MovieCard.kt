@@ -50,16 +50,14 @@ fun MovieCard(
                 onClick = { onItemClick(show) }
             )
     ) {
-        AsyncImage(
-            model = show.cover,
-            contentDescription = null,
+        Cover(
+            image = show.cover,
             modifier = Modifier
                 .height(200.dp)
                 .width(180.dp)
-                .clip(Shapes.large),
-            contentScale = ContentScale.Crop,
-            placeholder = painterResource(id = R.drawable.placeholder),
+                .clip(Shapes.large)
         )
+
         Spacer(modifier = Modifier.width(spacing.spaceSmall))
         Column() {
             Text(

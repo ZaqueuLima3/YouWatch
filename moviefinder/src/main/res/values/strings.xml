@@ -6,8 +6,8 @@
     <string name="summary">Summary</string>
     <string name="back">back</string>
     <string name="favorite">favorite</string>
-    <string name="from">from</string>
-    <string name="to">to</string>
+    <string name="from">From: %1$s of %2$d</string>
+    <string name="to">To: %1$s of %2$d</string>
     <string name="see_all_episodes">See all episodes</string>
     <string name="find_your_movies">Find your movies</string>
     <string name="season">Season</string>
