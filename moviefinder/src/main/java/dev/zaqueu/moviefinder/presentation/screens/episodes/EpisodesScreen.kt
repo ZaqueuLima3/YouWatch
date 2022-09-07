@@ -1,7 +1,5 @@
 package dev.zaqueu.moviefinder.presentation.screens.episodes
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -14,11 +12,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -27,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.zaqueu.moviefinder.R
 import dev.zaqueu.moviefinder.presentation.components.EpisodeCard
+import dev.zaqueu.moviefinder.presentation.components.TabBarHeader
 import dev.zaqueu.ui.theme.LocalSpacing
 import dev.zaqueu.ui.utils.events.UiEvents
 
@@ -47,6 +43,7 @@ fun EpisodesScreen(
         viewModel.uiEvent.collect { event ->
             when (event) {
                 is UiEvents.Pop -> onNavigate(event)
+                is UiEvents.Navigate -> onNavigate(event)
                 else -> {}
             }
         }
@@ -60,26 +57,10 @@ fun EpisodesScreen(
             ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    PaddingValues(
-                        vertical = spacing.spaceMedium
-                    )
-                ),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start
-        ) {
-            Icon(
-                imageVector = Icons.Filled.ArrowBack,
-                contentDescription = stringResource(id = R.string.back),
-                modifier = Modifier
-                    .clickable {
-                        viewModel.onEvent(EpisodesEvent.OnBackClick)
-                    }
-            )
-        }
+        TabBarHeader(
+            onBackClick = { viewModel.onEvent(EpisodesEvent.OnBackClick) }
+        )
+
         val episodes = viewModel.episodesState.episodes
         LazyColumn() {
             items(episodes.keys.toList()) { season ->
@@ -102,7 +83,11 @@ fun EpisodesScreen(
                                 name = "${ep.number} - ${ep.name}",
                                 image = ep.image,
                                 summary = ep.summary,
-                                onItemClick = { }
+                                onItemClick = {
+                                    viewModel.onEvent(
+                                        EpisodesEvent.OnEpisodesClick(ep.id)
+                                    )
+                                }
                             )
                             Spacer(modifier = Modifier.width(spacing.spaceMedium))
                         }
