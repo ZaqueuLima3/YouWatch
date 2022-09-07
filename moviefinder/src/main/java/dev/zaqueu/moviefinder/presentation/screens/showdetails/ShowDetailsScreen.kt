@@ -93,7 +93,7 @@ fun ShowDetailsScreen(
                 icon = if (show.isFavorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
                 onBackClick = { viewModel.onEvent(ShowDetailsEvent.OnBackClick) },
                 onIconClick = { viewModel.onEvent(ShowDetailsEvent.OnFavoriteClick(show)) },
-                iconTint = Color.Red
+                iconTint = MaterialTheme.colors.primary
             )
 
             Column(

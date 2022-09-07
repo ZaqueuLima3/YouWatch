@@ -79,7 +79,9 @@ class MainActivity : ComponentActivity() {
 
                         composable(NavRoutes.FAVORITE.route) {
                             InnerScreen(innerPadding) {
-                                FavoritesScreen()
+                                FavoritesScreen(
+                                    onNavigate = navController::navigate
+                                )
                             }
                         }
 

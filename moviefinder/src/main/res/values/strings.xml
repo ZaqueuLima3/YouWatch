@@ -6,6 +6,8 @@
     <string name="summary">Summary</string>
     <string name="back">back</string>
     <string name="favorite">favorite</string>
+    <string name="favorite_show">Favorites Shows</string>
+    <string name="all_your_favorite_movies">All your favorite movies ands series.</string>
     <string name="from">From: %1$s of %2$d</string>
     <string name="to">To: %1$s of %2$d</string>
     <string name="see_all_episodes">See all episodes</string>
