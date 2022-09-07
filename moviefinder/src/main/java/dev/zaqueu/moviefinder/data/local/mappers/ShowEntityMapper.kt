@@ -19,7 +19,8 @@ fun ShowAggregate.mapToModel(): Show {
         summary = show.summary,
         genres = genres.map { it.name },
         premiered = show.premiered?.let { LocalDate.parse(show.premiered) },
-        ended = show.ended?.let { LocalDate.parse(show.ended) }
+        ended = show.ended?.let { LocalDate.parse(show.ended) },
+        isFavorite = true,
     )
 }
 

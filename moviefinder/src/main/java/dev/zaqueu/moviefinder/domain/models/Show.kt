@@ -10,5 +10,6 @@ data class Show(
     val summary: String,
     val premiered: LocalDate?,
     val ended: LocalDate?,
-    val genres: List<String>
+    val genres: List<String>,
+    val isFavorite: Boolean = false
 )

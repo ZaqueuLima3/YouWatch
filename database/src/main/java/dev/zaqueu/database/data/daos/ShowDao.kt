@@ -16,6 +16,9 @@ interface ShowDao {
     @Query("SELECT * FROM ${ShowEntity.TABLE_NAME}")
     suspend fun getAllShows(): List<ShowAggregate>
 
+    @Query("SELECT ${ShowEntity.COLUMN_ID} FROM ${ShowEntity.TABLE_NAME}")
+    suspend fun getAllShowsIds(): List<Long>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertShow(
         show: ShowEntity,

@@ -6,4 +6,6 @@ interface FavoritesRepository {
     suspend fun saveShowAsFavorite(show: Show)
 
     suspend fun getAllShowsFromFavorites(): List<Show>
+
+    suspend fun removeShowFromFavorites(show: Show)
 }

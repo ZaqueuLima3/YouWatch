@@ -3,6 +3,7 @@ package dev.zaqueu.moviefinder.data.repositories
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import dev.zaqueu.database.data.daos.ShowDao
 import dev.zaqueu.moviefinder.data.remote.dtos.PagingShowsDto
 import dev.zaqueu.moviefinder.data.remote.mappers.mapToEpisode
 import dev.zaqueu.moviefinder.data.remote.mappers.mapToModel
@@ -14,7 +15,8 @@ import dev.zaqueu.moviefinder.domain.repositories.ShowsRepository
 import kotlinx.coroutines.flow.Flow
 
 class ShowsRepositoryImpl(
-    private val api: TvMazeApi
+    private val api: TvMazeApi,
+    private val showDao: ShowDao
 ) : ShowsRepository {
     override fun getAllShows(pageConfig: PagingConfig): Flow<PagingData<Show>> {
         return Pager(config = pageConfig) {
@@ -43,7 +45,9 @@ class ShowsRepositoryImpl(
 
     override suspend fun getShow(showId: String): Result<Show> {
         return try {
-            val result = api.getShow(showId).mapToModel()
+            val favoritesShowsIds = showDao.getAllShowsIds()
+            val isThisShowInFavorites = favoritesShowsIds.contains(showId.toLong())
+            val result = api.getShow(showId).mapToModel(isThisShowInFavorites)
             Result.success(result)
         } catch (e: Exception) {
             Result.failure(e)

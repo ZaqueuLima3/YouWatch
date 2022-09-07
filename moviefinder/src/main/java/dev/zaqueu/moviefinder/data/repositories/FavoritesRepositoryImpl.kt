@@ -16,4 +16,8 @@ class FavoritesRepositoryImpl(
     override suspend fun getAllShowsFromFavorites(): List<Show> {
         return showDao.getAllShows().mapToModel()
     }
+
+    override suspend fun removeShowFromFavorites(show: Show) {
+        return showDao.deleteShow(show.mapToEntity().show)
+    }
 }

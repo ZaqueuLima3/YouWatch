@@ -17,12 +17,14 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -84,19 +86,22 @@ fun ShowDetailsScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val show = viewModel.detailState.show
-        TabBarHeader(
-            title = show?.name.orEmpty(),
-            icon = Icons.Filled.FavoriteBorder,
-            onBackClick = { viewModel.onEvent(ShowDetailsEvent.OnBackClick) }
-        )
 
-        Column(
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .fillMaxSize()
-                .padding(spacing.spaceMedium)
-        ) {
-            if (show != null) {
+        if (show != null) {
+            TabBarHeader(
+                title = show.name,
+                icon = if (show.isFavorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+                onBackClick = { viewModel.onEvent(ShowDetailsEvent.OnBackClick) },
+                onIconClick = { viewModel.onEvent(ShowDetailsEvent.OnFavoriteClick(show)) },
+                iconTint = Color.Red
+            )
+
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .fillMaxSize()
+                    .padding(spacing.spaceMedium)
+            ) {
                 Spacer(modifier = Modifier.height(spacing.spaceLarge))
 
                 Cover(
@@ -168,6 +173,7 @@ fun ShowDetailsScreen(
                         color = MaterialTheme.colors.onPrimary,
                     )
                 }
+
             }
         }
     }

@@ -12,6 +12,7 @@ import dev.zaqueu.moviefinder.domain.usecases.GetAllShowsFromFavorites
 import dev.zaqueu.moviefinder.domain.usecases.GetEpisode
 import dev.zaqueu.moviefinder.domain.usecases.GetEpisodes
 import dev.zaqueu.moviefinder.domain.usecases.GetShow
+import dev.zaqueu.moviefinder.domain.usecases.RemoveShowFromFavorites
 import dev.zaqueu.moviefinder.domain.usecases.SaveShowAsFavorite
 import dev.zaqueu.moviefinder.domain.usecases.SearchShows
 
@@ -84,6 +85,16 @@ object DomainLayerModule {
         favoritesRepository: FavoritesRepository
     ): GetAllShowsFromFavorites {
         return GetAllShowsFromFavorites(
+            favoritesRepository
+        )
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideRemoveShowFromFavorites(
+        favoritesRepository: FavoritesRepository
+    ): RemoveShowFromFavorites {
+        return RemoveShowFromFavorites(
             favoritesRepository
         )
     }

@@ -60,10 +60,12 @@ object DataLayerModule {
     @Provides
     @Singleton
     fun provideShowsRepository(
-        api: TvMazeApi
+        api: TvMazeApi,
+        showDao: ShowDao
     ): ShowsRepository {
         return ShowsRepositoryImpl(
-            api = api
+            api = api,
+            showDao = showDao
         )
     }
 

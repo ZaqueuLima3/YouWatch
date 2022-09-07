@@ -8,7 +8,7 @@ fun List<ShowDto>.mapToShows(): List<Show> {
     return this.map { it.mapToModel() }
 }
 
-fun ShowDto.mapToModel(): Show {
+fun ShowDto.mapToModel(isFavorite: Boolean = false): Show {
     return Show(
         id = id,
         name = name,
@@ -17,6 +17,7 @@ fun ShowDto.mapToModel(): Show {
         summary = summary,
         genres = genres,
         premiered = premiered?.let { LocalDate.parse(premiered) },
-        ended = ended?.let { LocalDate.parse(ended) }
+        ended = ended?.let { LocalDate.parse(ended) },
+        isFavorite = isFavorite
     )
 }
