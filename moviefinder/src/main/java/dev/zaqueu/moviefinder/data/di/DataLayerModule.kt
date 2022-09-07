@@ -6,8 +6,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dev.zaqueu.database.data.daos.ShowDao
 import dev.zaqueu.moviefinder.data.remote.services.TvMazeApi
+import dev.zaqueu.moviefinder.data.repositories.FavoritesRepositoryImpl
 import dev.zaqueu.moviefinder.data.repositories.ShowsRepositoryImpl
+import dev.zaqueu.moviefinder.domain.repositories.FavoritesRepository
 import dev.zaqueu.moviefinder.domain.repositories.ShowsRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -61,6 +64,16 @@ object DataLayerModule {
     ): ShowsRepository {
         return ShowsRepositoryImpl(
             api = api
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideFavoritesRepository(
+        showDao: ShowDao
+    ): FavoritesRepository {
+        return FavoritesRepositoryImpl(
+            showDao = showDao
         )
     }
 }

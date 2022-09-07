@@ -4,6 +4,7 @@ apply {
 
 dependencies {
     "implementation"(project(Modules.core))
+    "implementation"(project(Modules.database))
     "implementation"(project(Modules.ui))
 
     "implementation"(Retrofit.retrofit)
