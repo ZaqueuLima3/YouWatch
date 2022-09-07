@@ -36,7 +36,13 @@ class ShowDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             getShow(showId)
                 .onSuccess { show ->
-                    detailState = detailState.copy(show = show)
+                    detailState = detailState.copy(
+                        show = show,
+                        isLoading = false
+                    )
+                }
+                .onFailure {
+                    detailState = detailState.copy(isLoading = false)
                 }
         }
     }

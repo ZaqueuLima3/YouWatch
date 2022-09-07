@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.zaqueu.moviefinder.R
 import dev.zaqueu.moviefinder.presentation.components.Cover
+import dev.zaqueu.moviefinder.presentation.components.Loading
 import dev.zaqueu.moviefinder.presentation.components.Summary
 import dev.zaqueu.moviefinder.presentation.components.TabBarHeader
 import dev.zaqueu.moviefinder.utils.extensions.capitalized
@@ -58,6 +59,15 @@ fun ShowDetailsScreen(
             }
         }
     }
+
+    if (viewModel.detailState.isLoading) {
+        Loading(
+            modifier = Modifier
+                .fillMaxSize()
+        )
+        return
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -109,12 +119,20 @@ fun ShowDetailsScreen(
 
                 if (show.premiered != null && show.ended != null) {
                     Text(
-                        text = stringResource(id = R.string.from, show.premiered.month.name.capitalized(), show.premiered.year),
+                        text = stringResource(
+                            id = R.string.from,
+                            show.premiered.month.name.capitalized(),
+                            show.premiered.year
+                        ),
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight.Medium
                     )
                     Text(
-                        text = stringResource(id = R.string.to, show.ended.month.name.capitalized(), show.ended.year),
+                        text = stringResource(
+                            id = R.string.to,
+                            show.ended.month.name.capitalized(),
+                            show.ended.year
+                        ),
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight.Medium
                     )
