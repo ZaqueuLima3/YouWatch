@@ -92,7 +92,7 @@ class MainActivity : ComponentActivity() {
                             )
                         ) { backStackEntry ->
                             ShowDetailsScreen(
-                                scaffoldState,
+                                scaffoldState = scaffoldState,
                                 onNavigate = navController::navigate,
                                 showId = backStackEntry.arguments?.getString(NavRoutes.DETAILS_SHOW_ID)
                             )
@@ -107,6 +107,7 @@ class MainActivity : ComponentActivity() {
                             )
                         ) { backStackEntry ->
                             EpisodesScreen(
+                                scaffoldState = scaffoldState,
                                 onNavigate = navController::navigate,
                                 showId = backStackEntry.arguments?.getString(NavRoutes.EPISODES_SHOW_ID)
                             )
@@ -121,6 +122,7 @@ class MainActivity : ComponentActivity() {
                             )
                         ) { backStackEntry ->
                             EpisodeDetailsScreen(
+                                scaffoldState = scaffoldState,
                                 onNavigate = navController::navigate,
                                 episodeId = backStackEntry.arguments?.getString(NavRoutes.EPISODE_DETAILS_ID)
                             )

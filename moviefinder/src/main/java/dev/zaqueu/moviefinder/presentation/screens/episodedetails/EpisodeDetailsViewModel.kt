@@ -6,8 +6,10 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.zaqueu.moviefinder.R
 import dev.zaqueu.moviefinder.domain.usecases.GetEpisode
 import dev.zaqueu.ui.utils.events.UiEvents
+import dev.zaqueu.ui.utils.text.TextResource
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -41,6 +43,9 @@ class EpisodeDetailsViewModel @Inject constructor(
                 }
                 .onFailure {
                     episodeDetailState = episodeDetailState.copy(isLoading = false)
+                    _uiEvent.send(
+                        UiEvents.ShowSnackBar(TextResource.StringResource(R.string.something_went_wrong))
+                    )
                 }
         }
     }

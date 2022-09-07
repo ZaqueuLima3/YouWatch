@@ -13,11 +13,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.zaqueu.moviefinder.R
@@ -29,10 +31,12 @@ import dev.zaqueu.ui.utils.events.UiEvents
 
 @Composable
 fun EpisodesScreen(
+    scaffoldState: ScaffoldState,
     onNavigate: (UiEvents) -> Unit,
     showId: String?,
     viewModel: EpisodesViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     val spacing = LocalSpacing.current
 
     LaunchedEffect(key1 = true) {
@@ -45,6 +49,11 @@ fun EpisodesScreen(
             when (event) {
                 is UiEvents.Pop -> onNavigate(event)
                 is UiEvents.Navigate -> onNavigate(event)
+                is UiEvents.ShowSnackBar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = event.message.toString(context)
+                    )
+                }
                 else -> {}
             }
         }

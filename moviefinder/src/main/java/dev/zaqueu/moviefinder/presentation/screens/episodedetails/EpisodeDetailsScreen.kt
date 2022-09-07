@@ -12,12 +12,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -34,12 +36,15 @@ import dev.zaqueu.ui.utils.events.UiEvents
 
 @Composable
 fun EpisodeDetailsScreen(
+    scaffoldState: ScaffoldState,
     onNavigate: (UiEvents) -> Unit,
     episodeId: String?,
     viewModel: EpisodeDetailsViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     val spacing = LocalSpacing.current
     val episode = viewModel.episodeDetailState.episode
+
     LaunchedEffect(key1 = true) {
         if (episodeId != null) {
             viewModel.onEvent(
@@ -49,6 +54,11 @@ fun EpisodeDetailsScreen(
         viewModel.uiEvent.collect { event ->
             when (event) {
                 is UiEvents.Pop -> onNavigate(event)
+                is UiEvents.ShowSnackBar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = event.message.toString(context)
+                    )
+                }
                 else -> {}
             }
         }
