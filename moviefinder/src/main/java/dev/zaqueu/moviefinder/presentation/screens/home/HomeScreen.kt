@@ -15,6 +15,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import dev.zaqueu.moviefinder.R
 import dev.zaqueu.moviefinder.presentation.components.Header
 import dev.zaqueu.moviefinder.presentation.components.MovieList
+import dev.zaqueu.moviefinder.utils.extensions.capitalized
 import dev.zaqueu.ui.theme.LocalSpacing
 import dev.zaqueu.ui.utils.events.UiEvents
 
@@ -25,6 +26,7 @@ fun HomeScreen(
 ) {
     val spacing = LocalSpacing.current
     LaunchedEffect(key1 = true) {
+        viewModel.fetchUserData()
         viewModel.uiEvent.collect { event ->
             when (event) {
                 is UiEvents.Navigate -> onNavigate(event)
@@ -38,7 +40,7 @@ fun HomeScreen(
             .fillMaxSize()
     ) {
         Header(
-            title = stringResource(id = R.string.hello),
+            title = stringResource(id = R.string.hello, viewModel.username.capitalized()),
             subTitle = stringResource(id = R.string.find_your_next_movie)
         )
 

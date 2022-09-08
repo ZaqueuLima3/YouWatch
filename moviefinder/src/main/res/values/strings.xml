@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello,</string>
+    <string name="hello">Hello %1$s,</string>
     <string name="find_your_next_movie">Find your next series or movies.</string>
     <string name="rating">Rating</string>
     <string name="summary">Summary</string>
