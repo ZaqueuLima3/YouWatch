@@ -20,8 +20,8 @@ Discover and share your favorite movies. Create your watchlist and add yours mov
 - [x] Open episode details
 - [x] Save as favorite
 - [x] Delete from favorite
-- [ ] User session
-- [ ] Allow user to set a PIN and use fingerprint
+- [x] User session
+- [x] Allow user to set a PIN and use fingerprint
 
 ## Tech Stack
 

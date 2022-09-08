@@ -22,10 +22,7 @@ class WelcomeViewModel @Inject constructor(
         viewModelScope.launch {
             preferences.saveShouldShowWelcomeScreen(false)
             _uiEvent.send(
-                UiEvents.NavigateAndClean(
-                    toRoute = NavRoutes.HOME.route,
-                    fromRoute = NavRoutes.WELCOME.route
-                )
+                UiEvents.Navigate(NavRoutes.PIN.route)
             )
         }
     }

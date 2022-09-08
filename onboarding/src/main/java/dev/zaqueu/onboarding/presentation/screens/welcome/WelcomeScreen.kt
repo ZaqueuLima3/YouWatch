@@ -22,7 +22,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
-import dev.zaqueu.core.navigation.NavRoutes
 import dev.zaqueu.onboarding.R
 import dev.zaqueu.onboarding.presentation.components.DefaultButton
 import dev.zaqueu.ui.theme.LocalSpacing
@@ -38,7 +37,7 @@ fun WelcomeScreen(
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
             when (event) {
-                is UiEvents.NavigateAndClean -> onNavigate(event)
+                is UiEvents.Navigate -> onNavigate(event)
                 else -> {}
             }
         }

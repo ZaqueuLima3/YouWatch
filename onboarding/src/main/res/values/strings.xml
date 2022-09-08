@@ -4,4 +4,10 @@
     <string name="welcome_to">Welcome To</string>
     <string name="discover_and_share_movies">Discover and share your favorite movies. Create your watchlist and add yours movies and series.</string>
     <string name="get_stared">Get Stared</string>
+    <string name="create_an_account">Create an account</string>
+    <string name="enter_your_pin">Enter your PIN</string>
+    <string name="username">Username</string>
+    <string name="pin">Pin</string>
+    <string name="save_account">Save account</string>
+    <string name="enter_pin">Enter PIN</string>
 </resources>

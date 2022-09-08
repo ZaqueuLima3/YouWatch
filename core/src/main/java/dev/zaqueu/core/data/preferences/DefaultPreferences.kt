@@ -1,6 +1,7 @@
 package dev.zaqueu.core.data.preferences
 
 import android.content.SharedPreferences
+import dev.zaqueu.core.domain.modules.User
 import dev.zaqueu.core.domain.preferences.Preferences
 
 class DefaultPreferences(
@@ -16,6 +17,23 @@ class DefaultPreferences(
         return sharedPreferences.getBoolean(
             Preferences.KEY_SHOULD_SHOW_WELCOME_SCREEN,
             true
+        )
+    }
+
+    override fun saveUserData(user: User) {
+        sharedPreferences.edit()
+            .putString(Preferences.KEY_USER_PIN, user.pin)
+            .putString(Preferences.KEY_USERNAME, user.username)
+            .apply()
+    }
+
+    override fun loadUserData(): User {
+        val username = sharedPreferences.getString(Preferences.KEY_USERNAME, "").orEmpty()
+        val pin = sharedPreferences.getString(Preferences.KEY_USER_PIN, "").orEmpty()
+
+        return User(
+            username = username,
+            pin = pin
         )
     }
 }

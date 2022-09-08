@@ -1,7 +1,6 @@
 package dev.zaqueu.youwatch
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -13,6 +12,7 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -29,13 +29,14 @@ import dev.zaqueu.moviefinder.presentation.screens.favorites.FavoritesScreen
 import dev.zaqueu.moviefinder.presentation.screens.home.HomeScreen
 import dev.zaqueu.moviefinder.presentation.screens.search.SearchScreen
 import dev.zaqueu.moviefinder.presentation.screens.showdetails.ShowDetailsScreen
+import dev.zaqueu.onboarding.presentation.screens.pinscreet.PinSecretScreen
 import dev.zaqueu.onboarding.presentation.screens.welcome.WelcomeScreen
 import dev.zaqueu.ui.theme.YouWatchTheme
 import dev.zaqueu.youwatch.navigation.navigate
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : FragmentActivity() {
     @Inject
     lateinit var preferences: Preferences
 
@@ -52,9 +53,11 @@ class MainActivity : ComponentActivity() {
                         && currentRoute.contains(NavRoutes.DETAILS.route).not()
                         && currentRoute.contains(NavRoutes.EPISODES.route).not()
                         && currentRoute != NavRoutes.WELCOME.route
+                        && currentRoute != NavRoutes.PIN.route
 
                 val startDestination =
-                    if (shouldShowWelcomeScreen) NavRoutes.WELCOME.route else NavRoutes.HOME.route
+                    if (shouldShowWelcomeScreen) NavRoutes.WELCOME.route else NavRoutes.PIN.route
+
                 Scaffold(
                     bottomBar = {
                         if (showBottomNavigation) {
@@ -69,6 +72,10 @@ class MainActivity : ComponentActivity() {
                     ) {
                         composable(NavRoutes.WELCOME.route) {
                             WelcomeScreen(onNavigate = navController::navigate)
+                        }
+
+                        composable(NavRoutes.PIN.route) {
+                            PinSecretScreen(onNavigate = navController::navigate)
                         }
 
                         composable(NavRoutes.HOME.route) {
