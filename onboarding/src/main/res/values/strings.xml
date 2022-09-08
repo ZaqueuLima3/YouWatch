@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="you_watch">You Watch</string>
+    <string name="you_watch">YouWatch</string>
     <string name="welcome_to">Welcome To</string>
     <string name="discover_and_share_movies">Discover and share your favorite movies. Create your watchlist and add yours movies and series.</string>
     <string name="get_stared">Get Stared</string>
@@ -10,4 +10,6 @@
     <string name="pin">Pin</string>
     <string name="save_account">Save account</string>
     <string name="enter_pin">Enter PIN</string>
+    <string name="unlock_your_device">Unlock your device</string>
+    <string name="cancel">Cancel</string>
 </resources>

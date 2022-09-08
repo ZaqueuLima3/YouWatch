@@ -171,6 +171,7 @@ fun ShowDetailsScreen(
                         text = stringResource(id = R.string.see_all_episodes),
                         style = MaterialTheme.typography.body1,
                         color = MaterialTheme.colors.onPrimary,
+                        modifier = Modifier.padding(spacing.spaceSmall)
                     )
                 }
 

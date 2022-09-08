@@ -10,9 +10,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.zaqueu.core.domain.modules.User
 import dev.zaqueu.core.domain.preferences.Preferences
 import dev.zaqueu.core.navigation.NavRoutes
+import dev.zaqueu.onboarding.R
 import dev.zaqueu.onboarding.domain.usecases.FilterDigits
-import dev.zaqueu.ui.utils.biometric.BiometricEvent
+import dev.zaqueu.ui.utils.biometric.Biometric
 import dev.zaqueu.ui.utils.events.UiEvents
+import dev.zaqueu.ui.utils.text.TextResource
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -53,18 +55,7 @@ class PinSecretViewModel @Inject constructor(
                 isUserDataSaved = isUserDataSaved
             )
             if (isUserDataSaved) {
-                _uiEvent.send(
-                    UiEvents.ShowBiometricPrompt(
-                        BiometricEvent.OnShowBiometric(
-                            onSuccess = { navigateToHome() },
-                            onError = {
-                                pinSecretState = pinSecretState.copy(
-                                    pinError = true
-                                )
-                            }
-                        )
-                    )
-                )
+                showBiometricPromp()
             }
         }
     }
@@ -109,6 +100,26 @@ class PinSecretViewModel @Inject constructor(
         pinSecretState = pinSecretState.copy(
             pinTextInputIsVisible = updatedPinVisibility
         )
+    }
+
+    private fun showBiometricPromp() {
+        viewModelScope.launch {
+            _uiEvent.send(
+                UiEvents.ShowBiometricPrompt(
+                    Biometric(
+                        title = TextResource.StringResource(R.string.you_watch),
+                        subtitle = TextResource.StringResource(R.string.unlock_your_device),
+                        negativeButton = TextResource.StringResource(R.string.cancel),
+                        onSuccess = { navigateToHome() },
+                        onError = {
+                            pinSecretState = pinSecretState.copy(
+                                pinError = true
+                            )
+                        }
+                    )
+                )
+            )
+        }
     }
 
     private fun navigateToHome() {
