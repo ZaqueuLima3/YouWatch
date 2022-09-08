@@ -37,7 +37,7 @@ fun WelcomeScreen(
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
             when (event) {
-                is UiEvents.Navigate -> onNavigate(event)
+                is UiEvents.NavigateAndClean -> onNavigate(event)
                 else -> {}
             }
         }
