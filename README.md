@@ -9,7 +9,7 @@ Discover and share your favorite movies. Create your watchlist and add yours mov
 
 ## Demo
 
-![demo 3](https://user-images.githubusercontent.com/31195408/188634673-5c818c3f-f247-4ccb-a77f-806100deb5cd.gif)
+![youwatch](https://user-images.githubusercontent.com/31195408/189344242-967c0de5-e1f1-49ea-a8c1-26f0aebedb13.gif)
 
 ## Features
 
